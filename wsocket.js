@@ -9,6 +9,10 @@ socketServer.on("connection", (stream, req) => {
         socketServer.clients.forEach(client => {
             if(client != stream && client.readyState == WebSocket.OPEN) {
                 client.send(stream.id + " says: " + data.toString());
+            } else {
+                if(client.readyState == WebSocket.OPEN) {
+                    client.send("You say: " + data.toString());
+                }
             }
         })
     })
