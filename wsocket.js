@@ -4,16 +4,20 @@ const socketServer = new WebSocket.Server({port: 8002});
 socketServer.on("connection", (stream, req) => {
 
     stream.id = req.headers['sec-websocket-key'];
+    stream.room = req.url;
 
     stream.on("message", (data) => {
         socketServer.clients.forEach(client => {
-            if(client != stream && client.readyState == WebSocket.OPEN) {
+
+            let roomName = stream.room
+            if(client != stream && client.readyState == WebSocket.OPEN && client.room == roomName) {
                 client.send(stream.id + " says: " + data.toString());
             } else {
-                if(client.readyState == WebSocket.OPEN) {
-                    client.send("You say: " + data.toString());
+                if(client.readyState == WebSocket.OPEN && client.room == roomName) {
+                    client.send("You say: " + data.toString() + "");
                 }
             }
+
         })
     })
 
