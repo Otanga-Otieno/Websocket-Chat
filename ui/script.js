@@ -12,6 +12,7 @@ function createWebsocketServer () {
     server = new WebSocket(url);
 
     var msg = document.getElementById("messages");
+    msg.innerHTML = "";
     server.onmessage = (message)=> {
         
         let spn2 = document.createElement("span");
