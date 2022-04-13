@@ -1,7 +1,5 @@
 var http = require('http');
-var fs = require('fs');
 var static = require('node-static');
-var url = require('url');
 
 var file = new static.Server('./ui');
 
