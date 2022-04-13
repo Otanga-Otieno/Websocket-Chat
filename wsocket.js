@@ -10,16 +10,17 @@ socketServer.on("connection", (stream, req) => {
         socketServer.clients.forEach(client => {
 
             let roomName = stream.room
-            if(client != stream && client.readyState == WebSocket.OPEN && client.room == roomName) {
-                client.send(stream.id + " says: " + data.toString());
-            } else {
-                if(client.readyState == WebSocket.OPEN && client.room == roomName) {
+            if(client.readyState == WebSocket.OPEN && client.room === roomName) {
+
+                if(client !== stream) {
+                    client.send(stream.id + " says: " + data.toString());
+                } else {
                     client.send("You say: " + data.toString() + "");
                 }
             }
 
         })
-    })
+    });
 
 });
 

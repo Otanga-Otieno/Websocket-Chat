@@ -1,10 +1,15 @@
+var server;
 
 function createWebsocketServer () {
 
+    if(server) {
+        console.log("You disconnected from current room ");
+        server.close(); //CLOSED = true;
+    }
     const roomName = document.querySelector("#roomname").value;
-    console.log(roomName);
+    console.log("You joined room " + roomName);
     const url = "ws://localhost:8002/" + roomName;
-    const server = new WebSocket(url);
+    server = new WebSocket(url);
 
     var msg = document.getElementById("messages");
     server.onmessage = (message)=> {
@@ -23,14 +28,16 @@ function createWebsocketServer () {
 
     }
 
-    var sendButton = document.getElementById("squeal");
-    sendButton.addEventListener("click", ()=> {
+}
 
-        let currentMessage = document.getElementById("textbox");
-        let message = currentMessage.value;
-        server.send(message);
-        currentMessage.value = "";
 
-    });
+function sendMessage() {
+    
+    if(!server) return;
+    let sendButton = document.getElementById("squeal");
+    let currentMessage = document.getElementById("textbox");
+    let message = currentMessage.value;
+    server.send(message);
+    currentMessage.value = "";
 
 }
