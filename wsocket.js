@@ -1,6 +1,6 @@
 const WebSocket = require('ws');
 
-const socketServer = new WebSocket.Server({port: 8002});
+const socketServer = new WebSocket.Server({port: 9002});
 socketServer.on("connection", (stream, req) => {
 
     stream.id = req.headers['sec-websocket-key'];
