@@ -7,4 +7,4 @@ var server = http.createServer(function(req, res) {
     if(req.url === "/") req.url = "/index.htm";
     file.serve(req, res);
 });
-server.listen(8001);
+server.listen(9001);

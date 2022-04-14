@@ -8,7 +8,7 @@ function createWebsocketServer () {
     }
     const roomName = document.querySelector("#roomname").value;
     console.log("You joined room " + roomName);
-    const url = "ws://localhost:8002/" + roomName;
+    const url = "ws://server.otanga.co.ke:9002/" + roomName;
     server = new WebSocket(url);
 
     var msg = document.getElementById("messages");
