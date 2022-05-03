@@ -7,12 +7,12 @@ var options = {
     cert: fs.readFileSync("/etc/letsencrypt/live/server.otanga.co.ke/fullchain.pem")
 };
 
-var server = https.createServer(options, (req, res) => {
+var httpServer = https.createServer(options, (req, res) => {
     //do nothing
 });
 
-const socketServer = new WebSocket.Server(server);
-server.listen(9002);
+const socketServer = new WebSocket.Server({server: httpServer});
+httpServer.listen(9002);
 
 socketServer.on("connection", (stream, req) => {
 
