@@ -1,6 +1,19 @@
 const WebSocket = require('ws');
+var https = require('https');
+var fs = require('fs');
 
-const socketServer = new WebSocket.Server({port: 9002});
+var options = {
+    key: fs.readFileSync("/etc/letsencrypt/live/server.otanga.co.ke/privkey.pem"),
+    cert: fs.readFileSync("/etc/letsencrypt/live/server.otanga.co.ke/fullchain.pem")
+};
+
+var server = https.createServer(options, (req, res) => {
+    //do nothing
+});
+
+const socketServer = new WebSocket.Server(server);
+server.listen(9002);
+
 socketServer.on("connection", (stream, req) => {
 
     stream.id = req.headers['sec-websocket-key'];
