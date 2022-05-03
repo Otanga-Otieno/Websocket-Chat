@@ -1,9 +1,14 @@
-var http = require('http');
+var https = require('https');
 var static = require('node-static');
 
 var file = new static.Server('./ui');
 
-var server = http.createServer(function(req, res) {
+var options = {
+    key: fs.readFileSync("/etc/letsencrypt/live/server.otanga.co.ke/privkey.pem"),
+    cert: fs.readFileSync("/etc/letsencrypt/live/server.otanga.co.ke/fullchain.pem")
+};
+
+var server = https.createServer(options, function(req, res) {
     if(req.url === "/") req.url = "/index.htm";
     file.serve(req, res);
 });
