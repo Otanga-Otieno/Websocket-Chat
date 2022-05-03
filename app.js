@@ -1,4 +1,5 @@
 var https = require('https');
+var fs = require('fs');
 var static = require('node-static');
 
 var file = new static.Server('./ui');
